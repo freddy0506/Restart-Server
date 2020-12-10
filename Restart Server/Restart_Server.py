@@ -4,20 +4,23 @@ import time
 from datetime import datetime
 from datetime import date
 
-server = MineS.lookup("192.168.178.143")
+server = MineS.lookup("www.de")
 
-logFile = open("Crash_Log.txt", "a")
-now = datetime.now()
-today = date.today()
 
+row = 0
 
 while(True):
     try:
         ping = server.ping()
         print(ping)
     except:
-        with open("Crash_Log.txt", "a") as logFile:
-            logFile.write(today.strftime("%D ") + now.strftime("[%H:%M:%S]" + " The Server is (re)starting"))
+        with open('Crash_Log.txt', 'a') as file:
+            #file.write(row * "\n")
+            #row += 1
+            now = datetime.now()
+            today = date.today()
+            file.write(today.strftime("%D ") + now.strftime("[%H:%M:%S]" + " The Server is (re)starting\n"))
+        
         print("Starte Server...")
         os.system("java -Xmx5120M -Xms5120M -jar /root/server.jar nogui")
-    time.sleep(10)
+    time.sleep(1)
